@@ -1,12 +1,14 @@
 <template>
-  <UApp class="h-dvh w-dvw relative">
-    <UNavigationMenu class="w-full justify-center mb-10 mt-4" :items="items"/>
-    <NuxtPage />
-  </UApp>
+  <div class="max-h-dvh h-dvh max-w-dvw w-dvw">
+    <UApp>
+      <UNavigationMenu class="h-1/20 w-full justify-center" :items="items"/>
+      <NuxtPage class="max-h-19/20 p-8"/>
+    </UApp>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import type { NavigationMenuItem } from '@nuxt/ui';
+import type {NavigationMenuItem} from '@nuxt/ui';
 
 const items: NavigationMenuItem[] = [
   {
