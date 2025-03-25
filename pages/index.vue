@@ -1,10 +1,20 @@
 <template>
-  <div>
-    <UContainer class="relative w-3/7 flex flex-col gap-2">
-      <UCard class="w-full" variant="subtle" v-for="point in points">
+  <div class="flex relative h-full">
+    <UContainer class="w-3/7 flex flex-col max-h-8/12 h-full overflow-auto">
+      <UCard variant="subtle" class="mt-2" v-for="point in points">
         <UCheckbox size="xl" :label="point" />
       </UCard>
     </UContainer>
+	<UContainer class="w-2/7">
+		<UCard variant="subtle">
+			<template #header>
+				<span class="text-2xl">Rating</span>
+			</template>
+
+			<span class="text-7xl">⭐ 8,9 / 10</span>
+			
+		</UCard>
+	</UContainer>
   </div>
 </template>
 
