@@ -12,18 +12,18 @@ import type {NavigationMenuItem} from '@nuxt/ui';
 
 const items: NavigationMenuItem[] = [
   {
-    label: 'Guide',
-    icon: 'i-lucide-book-open'
+    label: 'Fish13',
+    icon: 'i-lucide-fish'
 
   },
   {
-    label: 'Composables',
-    icon: 'i-lucide-database'
+    label: 'Trek Trendy',
+    icon: 'i-lucide-plane-takeoff'
 
   },
   {
-    label: 'Components',
-    icon: 'i-lucide-box',
+    label: 'Nuke\'s Top 5',
+    icon: 'i-lucide-ghost',
     slot: 'components'
   }
 ]
