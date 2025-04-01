@@ -1,25 +1,60 @@
 <template>
-  <div class="flex">
-    <UContainer class="w-3/7 flex flex-col overflow-auto">
-      <UCard variant="subtle" class="mt-2 flex justify-between items-center" v-for="(point, index) in points" :key="index">
+  <div class="flex gap-4">
+    <!-- Linke Spalte -->
+    <UContainer class="w-2/5 flex flex-col overflow-auto">
+      <UCard variant="subtle" class="mt-2 flex justify-between items-center" v-for="(point, index) in points"
+        :key="index">
         <div class="flex items-center gap-2">
-          <UCheckbox size="xl" :label="point" v-model="checkedPoints[index]"/>
-          <UBadge
-            v-if="rarities[point]"
-            :class="getBadgeClass(rarities[point].label)"
-          >
+          <UCheckbox size="xl" :label="point" v-model="checkedPoints[index]" />
+          <UBadge v-if="rarities[point]" :class="[
+            'px-2 py-1 rounded text-white',
+            rarities[point].label === 'Common' && 'bg-gray-400',
+            rarities[point].label === 'Rare' && 'bg-blue-400',
+            rarities[point].label === 'Epic' && 'bg-purple-400',
+            rarities[point].label === 'Legendary' && 'bg-orange-400',
+            rarities[point].label === 'Mythical' && 'bg-gradient-to-r'
+          ]">
             {{ rarities[point].label }}
           </UBadge>
         </div>
       </UCard>
     </UContainer>
-    <UContainer class="w-2/7">
-      <UCard variant="subtle">
+
+    <!-- Rechte Spalte -->
+    <UContainer class="w-2/5 flex flex-col gap-4">
+      <!-- Video-Karte -->
+      <UCard variant="subtle" class="mb-4">
+        <template #header>
+          <span class="text-2xl">Video</span>
+        </template>
+        <div class="flex flex-col gap-2">
+          <input v-model="videoUrl" type="text" placeholder="YouTube URL eingeben"
+            class="w-full p-2 border border-gray-300 rounded" @input="loadVideo" />
+          <div v-if="videoThumbnail" class="flex flex-col items-center">
+            <img :src="videoThumbnail" alt="Video Thumbnail" class="w-128 h-72 object-cover mt-4" />
+            <p class="text-lg font-bold mt-2 text-center">{{ videoTitle }}</p>
+          </div>
+        </div>
+      </UCard>
+
+      <!-- Rating-Karte -->
+      <UCard variant="subtle" class="mb-4">
         <template #header>
           <span class="text-2xl">Rating</span>
         </template>
+        <div class="flex items-center justify-center">
+          <span class="text-7xl">⭐ {{ rating }} / 10</span>
+        </div>
+      </UCard>
 
-        <span class="text-7xl">⭐ {{ rating }} / 10</span>
+      <!-- Save-Karte -->
+      <UCard variant="subtle" class="mb-4">
+        <template #header>
+          <span class="text-2xl">Save</span>
+        </template>
+        <div class="flex items-center justify-center">
+          <button class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+        </div>
       </UCard>
     </UContainer>
   </div>
@@ -36,7 +71,35 @@ const points = ["Hurensohn TV oder Bastard Beamer", "E-Pumpe", "50 KW Heizleistu
 // Checkbox-Status
 const checkedPoints = ref(Array(points.length).fill(false));
 
-// Gewichtung der Rarities
+// Video-Logik
+const videoUrl = ref('');
+const videoThumbnail = ref('');
+const videoTitle = ref('');
+
+function loadVideo() {
+  const videoId = extractYouTubeId(videoUrl.value);
+  if (videoId) {
+    videoThumbnail.value = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+    fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
+      .then(response => response.json())
+      .then(data => {
+        videoTitle.value = data.title;
+      })
+      .catch(() => {
+        videoTitle.value = 'Unbekannter Titel';
+      });
+  } else {
+    videoThumbnail.value = '';
+    videoTitle.value = '';
+  }
+}
+
+function extractYouTubeId(url: string): string | null {
+  const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^?&]+)/);
+  return match ? match[1] || match[2] : null;
+}
+
+// Rating-Logik
 const rarityWeights: Record<string, number> = {
   "Common": 1,
   "Uncommon": 2,
@@ -46,7 +109,6 @@ const rarityWeights: Record<string, number> = {
   "Mythical": 10
 };
 
-// Manuelle Zuweisung der Rarities
 const rarities: Record<string, { label: string; color: string }> = {
   "Hurensohn TV oder Bastard Beamer": { label: "Legendary", color: "orange" },
   "E-Pumpe": { label: "Rare", color: "blue" },
@@ -76,13 +138,11 @@ const rarities: Record<string, { label: string; color: string }> = {
   "Fettsack": { label: "Rare", color: "blue" }
 };
 
-// Berechnung des maximalen Gewichts
 const maxWeight = Object.keys(rarities).reduce((sum, point) => {
   const rarity = rarities[point].label;
   return sum + rarityWeights[rarity];
 }, 0);
 
-// Berechnung des aktuellen Ratings
 const rating = computed(() => {
   const currentWeight = points.reduce((sum, point, index) => {
     if (checkedPoints.value[index]) {
@@ -94,26 +154,6 @@ const rating = computed(() => {
 
   return ((currentWeight / maxWeight) * 10).toFixed(1);
 });
-
-// Methode zur Bestimmung der Badge-Klasse
-function getBadgeClass(label: string) {
-  switch (label) {
-    case "Common":
-      return "bg-gray-500 text-white";
-    case "Uncommon":
-      return "bg-green-500 text-white";
-    case "Rare":
-      return "bg-blue-500 text-white";
-    case "Epic":
-      return "bg-purple-500 text-white";
-    case "Legendary":
-      return "bg-orange-500 text-white";
-    case "Mythical":
-      return "bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 text-white";
-    default:
-      return "";
-  }
-}
 </script>
 
 <style>
