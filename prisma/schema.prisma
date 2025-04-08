@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -11,21 +12,7 @@ datasource db {
 }
 
 model Fish13 {
-  id    String  @id
-  title String
-  score Float
-  points String
-}
-
-model TrekTrendy {
-  id    String  @id
-  title String
-  score Float
-  points String
-}
-
-model NukesTop5 {
-  id    String  @id
+  id    String @id
   title String
   score Float
   points String
