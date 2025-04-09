@@ -16,6 +16,7 @@
     "@nuxt/image": "^1.10.0",
     "@nuxt/ui": "^3.0.2",
     "dayjs": "^1.11.13",
+    "@prisma/nuxt": "^0.3.0",
     "nuxt": "^3.16.2",
     "nuxt-security": "^2.2.0",
     "openid-client": "^6.4.1",
