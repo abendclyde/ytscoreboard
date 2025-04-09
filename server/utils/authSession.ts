@@ -19,7 +19,7 @@ export const useAuthSession = (
     cookie: {
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: 'lax',
     },
   })
 }

@@ -17,7 +17,7 @@ export const useLoginSession = (
     cookie: {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: 'lax',
     },
   })
 }
