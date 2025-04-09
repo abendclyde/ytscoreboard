@@ -1,99 +1,62 @@
 <template>
-	<div class="flex gap-4">
-		<!-- Linke Spalte -->
-		<UContainer class="flex w-2/5 flex-col overflow-auto">
-			<UCard
-				v-for="(point, index) in points"
-				:key="index"
-				variant="subtle"
-				class="mt-2 flex items-center justify-between"
-			>
-				<div class="flex items-center gap-2">
-					<UCheckbox
-						v-model="checkedPoints[index]"
-						size="xl"
-						:label="point"
-					/>
-					<UBadge
-						v-if="rarities[point]"
-						:class="[
-							'rounded px-2 py-1 text-white',
-							rarities[point].label === 'Common' && 'bg-gray-400',
-							rarities[point].label === 'Rare' && 'bg-blue-400',
-							rarities[point].label === 'Epic' && 'bg-purple-400',
-							rarities[point].label === 'Legendary' && 'bg-orange-400',
-							rarities[point].label === 'Mythical' && 'bg-gradient-to-r',
-						]"
-					>
-						{{ rarities[point].label }}
-					</UBadge>
-				</div>
-			</UCard>
-		</UContainer>
+  <div class="flex gap-4">
+    <!-- Linke Spalte -->
+    <UContainer class="w-2/5 flex flex-col overflow-auto">
+      <UCard variant="subtle" class="mt-2 flex justify-between items-center" v-for="(point, index) in points"
+        :key="index">
+        <div class="flex items-center gap-2">
+          <UCheckbox size="xl" :label="point" v-model="checkedPoints[index]" color="primary"/>
+          <UBadge v-if="rarities[point]" :class="[
+            'px-2 py-1 rounded text-white',
+            rarities[point].label === 'Common' && 'bg-gray-400',
+            rarities[point].label === 'Rare' && 'bg-blue-400',
+            rarities[point].label === 'Epic' && 'bg-purple-400',
+            rarities[point].label === 'Legendary' && 'bg-orange-400',
+            rarities[point].label === 'Mythical' && 'bg-gradient-to-r'
+          ]">
+            {{ rarities[point].label }}
+          </UBadge>
+        </div>
+      </UCard>
+    </UContainer>
 
-		<!-- Rechte Spalte -->
-		<UContainer class="flex w-2/5 flex-col gap-4">
-			<!-- Video-Karte -->
-			<UCard
-				variant="subtle"
-				class="mb-4"
-			>
-				<template #header>
-					<span class="text-2xl">Video</span>
-				</template>
-				<div class="flex flex-col gap-2">
-					<input
-						v-model="videoUrl"
-						type="text"
-						placeholder="YouTube URL eingeben"
-						class="w-full rounded border border-gray-300 p-2"
-						@input="loadVideo"
-					>
-					<div
-						v-if="videoThumbnail"
-						class="flex flex-col items-center"
-					>
-						<img
-							:src="videoThumbnail"
-							alt="Video Thumbnail"
-							class="w-128 mt-4 h-72 object-cover"
-						>
-						<p class="mt-2 text-center text-lg font-bold">
-							{{ videoTitle }}
-						</p>
-					</div>
-				</div>
-			</UCard>
+    <!-- Rechte Spalte -->
+    <UContainer class="w-2/5 flex flex-col gap-4">
+      <!-- Video-Karte -->
+      <UCard variant="outline" class="mb-4">
+        <template #header>
+          <span class="text-2xl">Video</span>
+        </template>
+        <div class="flex flex-col gap-2">
+          <UInput placeholder="YouTube-URL" v-model="videoUrl" @update:model-value="loadVideo" />
+          <div v-if="videoThumbnail" class="flex flex-col items-center">
+            <NuxtImg :src="videoThumbnail" alt="Video Thumbnail" class="w-128 h-72 object-cover mt-4 rounded-lg" />
+            <p class="text-lg font-bold mt-2 text-center">{{ videoTitle }}</p>
+          </div>
+        </div>
+      </UCard>
 
-			<!-- Rating-Karte -->
-			<UCard
-				variant="subtle"
-				class="mb-4"
-			>
-				<template #header>
-					<span class="text-2xl">Rating</span>
-				</template>
-				<div class="flex items-center justify-center">
-					<span class="text-7xl">⭐ {{ rating }} / 10</span>
-				</div>
-			</UCard>
+      <!-- Rating-Karte -->
+      <UCard variant="outline" class="mb-4">
+        <template #header>
+          <span class="text-2xl">Rating</span>
+        </template>
+        <div class="flex items-center justify-center">
+          <span class="text-7xl">⭐ {{ rating }} / 10</span>
+        </div>
+      </UCard>
 
-			<!-- Save-Karte -->
-			<UCard
-				variant="subtle"
-				class="mb-4"
-			>
-				<template #header>
-					<span class="text-2xl">Save</span>
-				</template>
-				<div class="flex items-center justify-center">
-					<button class="rounded bg-blue-500 px-4 py-2 text-white">
-						Save
-					</button>
-				</div>
-			</UCard>
-		</UContainer>
-	</div>
+      <!-- Save-Karte -->
+      <UCard variant="outline" class="mb-4">
+        <template #header>
+          <span class="text-2xl">Save</span>
+        </template>
+        <div class="flex items-center justify-center">
+          <UButton label="Speichern" color="primary" />
+        </div>
+      </UCard>
+    </UContainer>
+  </div>
 </template>
 
 <script lang="ts" setup>
