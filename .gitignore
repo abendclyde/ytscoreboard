@@ -25,5 +25,4 @@ logs
 *.db
 *.db-journal
 
-edge.js
-index.js
+lib/generated
