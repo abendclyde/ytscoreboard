@@ -1,39 +1,5 @@
 <template>
 	<div class="flex gap-4">
-		{{ user }}
-
-		<!-- Linke Spalte -->
-		<UContainer class="w-2/5 flex flex-col overflow-auto">
-			<UCard
-				v-for="(point, index) in points"
-				:key="index"
-				variant="subtle"
-				class="mt-2 flex justify-between items-center"
-			>
-				<div class="flex items-center gap-2">
-					<UCheckbox
-						v-model="checkedPoints[index]"
-						size="xl"
-						:label="point"
-						color="primary"
-					/>
-					<UBadge
-						v-if="rarities[point]"
-						:class="[
-							'px-2 py-1 rounded text-white',
-							rarities[point].label === 'Common' && 'bg-gray-400',
-							rarities[point].label === 'Rare' && 'bg-blue-400',
-							rarities[point].label === 'Epic' && 'bg-purple-400',
-							rarities[point].label === 'Legendary' && 'bg-orange-400',
-							rarities[point].label === 'Mythical' && 'bg-gradient-to-r',
-						]"
-					>
-						{{ rarities[point].label }}
-					</UBadge>
-				</div>
-			</UCard>
-		</UContainer>
-
 		<!-- Linke Spalte -->
 		<UContainer class="w-2/5 flex flex-col overflow-auto">
 			<UCard
