@@ -90,41 +90,41 @@ const items: NavigationMenuItem[] = [
 ]
 
 const badges = ref<InputMenuItem[]>([
-  {
-    label: 'Common',
-    chip: {
-      color: 'common',
-    }
-  },
-  {
-    label: 'Uncommon',
-    chip: {
-      color: 'uncommon',
-    }
-  },
-  {
-    label: 'Rare',
-    chip: {
-      color: 'rare',
-    }
-  },
-  {
-    label: 'Epic',
-    chip: {
-      color: 'epic',
-    }
-  },
-  {
-    label: 'Legendary',
-    chip: {
-      color: 'legendary',
-    }
-  },
-  {
-    label: 'Mythical',
-    chip: {
-      color: 'mythical',
-    }
-  },
+	{
+		label: 'Common',
+		chip: {
+			color: 'common',
+		},
+	},
+	{
+		label: 'Uncommon',
+		chip: {
+			color: 'uncommon',
+		},
+	},
+	{
+		label: 'Rare',
+		chip: {
+			color: 'rare',
+		},
+	},
+	{
+		label: 'Epic',
+		chip: {
+			color: 'epic',
+		},
+	},
+	{
+		label: 'Legendary',
+		chip: {
+			color: 'legendary',
+		},
+	},
+	{
+		label: 'Mythical',
+		chip: {
+			color: 'mythical',
+		},
+	},
 ])
 </script>

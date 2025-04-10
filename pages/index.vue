@@ -33,7 +33,7 @@
 				</div>
 			</UCard>
 		</UContainer>
-	<div class="flex gap-4">
+
 		<!-- Linke Spalte -->
 		<UContainer class="w-2/5 flex flex-col overflow-auto">
 			<UCard
