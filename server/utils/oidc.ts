@@ -69,8 +69,6 @@ export const refreshToken = async (event: H3Event) => {
 	try {
 		const tokens = await client.refreshTokenGrant(config, session.data.refreshToken)
 
-		console.log(tokens)
-
 		const expiresAt = dayjs().add(tokens.expires_in ?? 3600, 'seconds')
 		await session.update({
 			accessToken: tokens.access_token,
@@ -82,6 +80,6 @@ export const refreshToken = async (event: H3Event) => {
 	catch (err) {
 		consola.error(err)
 		await session.clear()
-		throw createError('refresh failed')
+		throw createError('token refresh failed')
 	}
 }
