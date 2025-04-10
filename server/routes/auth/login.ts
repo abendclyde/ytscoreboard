@@ -1,7 +1,12 @@
 import * as client from 'openid-client'
 
 export default defineEventHandler(async (event) => {
-	const { scope, redirectUri, pkce } = useRuntimeConfig().oidc
+	const { scope, redirectURL, pkce } = useRuntimeConfig().oidc
+
+	const loggedIn = await validateToken(event)
+	if (loggedIn) {
+		return sendRedirect(event, '/')
+	}
 
 	const config = await useOIDCConfig()
 
@@ -9,7 +14,7 @@ export default defineEventHandler(async (event) => {
 	await session.clear()
 
 	const parameters: Record<string, string> = {
-		redirect_uri: redirectUri,
+		redirect_uri: redirectURL,
 		scope: scope,
 	}
 

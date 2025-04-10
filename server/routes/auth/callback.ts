@@ -17,30 +17,24 @@ export default defineEventHandler(async (event) => {
 
 	await loginSession.clear()
 
-	const tokens: client.TokenEndpointResponse = await client.authorizationCodeGrant(
+	const tokens: client.TokenEndpointResponse & client.TokenEndpointResponseHelpers = await client.authorizationCodeGrant(
 		config,
 		getRequestURL(event),
 		checks,
 	)
 
+	const expiresAt = dayjs().add(tokens.expires_in ?? 3600, 'seconds')
 	await authSession.update({
 		accessToken: tokens.access_token,
 		refreshToken: tokens.refresh_token,
 		idToken: tokens.id_token,
+		expiresAt: expiresAt.unix(),
 		claims: {
-			// @ts-expect-error: claims() is not typed
-			sub: tokens.claims().sub,
-			// @ts-expect-error: claims() is not typed
-			name: tokens.claims().given_name as string,
-			// @ts-expect-error: claims() is not typed
-			picture: tokens.claims().picture as string,
+			sub: tokens.claims()?.sub as string,
+			name: tokens.claims()?.given_name as string,
+			picture: tokens.claims()?.picture as string,
 		},
 	})
-
-	if (tokens.expires_in) {
-		const expiresAt = dayjs().add(tokens.expires_in, 'seconds')
-		await authSession.update({ expiresAt: expiresAt.unix() })
-	}
 
 	return sendRedirect(event, '/')
 })
