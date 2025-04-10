@@ -1,62 +1,99 @@
 <template>
-  <div class="flex gap-4">
-    <!-- Linke Spalte -->
-    <UContainer class="w-2/5 flex flex-col overflow-auto">
-      <UCard variant="subtle" class="mt-2 flex justify-between items-center" v-for="(point, index) in points"
-        :key="index">
-        <div class="flex items-center gap-2">
-          <UCheckbox size="xl" :label="point" v-model="checkedPoints[index]" color="primary"/>
-          <UBadge v-if="rarities[point]" :class="[
-            'px-2 py-1 rounded text-white',
-            rarities[point].label === 'Common' && 'bg-gray-400',
-            rarities[point].label === 'Rare' && 'bg-blue-400',
-            rarities[point].label === 'Epic' && 'bg-purple-400',
-            rarities[point].label === 'Legendary' && 'bg-orange-400',
-            rarities[point].label === 'Mythical' && 'bg-gradient-to-r'
-          ]">
-            {{ rarities[point].label }}
-          </UBadge>
-        </div>
-      </UCard>
-    </UContainer>
+	<div class="flex gap-4">
+		<!-- Linke Spalte -->
+		<UContainer class="w-2/5 flex flex-col overflow-auto">
+			<UCard
+				v-for="(point, index) in points"
+				:key="index"
+				variant="subtle"
+				class="mt-2 flex justify-between items-center"
+			>
+				<div class="flex items-center gap-2">
+					<UCheckbox
+						v-model="checkedPoints[index]"
+						size="xl"
+						:label="point"
+						color="primary"
+					/>
+					<UBadge
+						v-if="rarities[point]"
+						:class="[
+							'px-2 py-1 rounded text-white',
+							rarities[point].label === 'Common' && 'bg-gray-400',
+							rarities[point].label === 'Rare' && 'bg-blue-400',
+							rarities[point].label === 'Epic' && 'bg-purple-400',
+							rarities[point].label === 'Legendary' && 'bg-orange-400',
+							rarities[point].label === 'Mythical' && 'bg-gradient-to-r',
+						]"
+					>
+						{{ rarities[point].label }}
+					</UBadge>
+				</div>
+			</UCard>
+		</UContainer>
 
-    <!-- Rechte Spalte -->
-    <UContainer class="w-2/5 flex flex-col gap-4">
-      <!-- Video-Karte -->
-      <UCard variant="outline" class="mb-4">
-        <template #header>
-          <span class="text-2xl">Video</span>
-        </template>
-        <div class="flex flex-col gap-2">
-          <UInput placeholder="YouTube-URL" v-model="videoUrl" @update:model-value="loadVideo" />
-          <div v-if="videoThumbnail" class="flex flex-col items-center">
-            <NuxtImg :src="videoThumbnail" alt="Video Thumbnail" class="w-128 h-72 object-cover mt-4 rounded-lg" />
-            <p class="text-lg font-bold mt-2 text-center">{{ videoTitle }}</p>
-          </div>
-        </div>
-      </UCard>
+		<!-- Rechte Spalte -->
+		<UContainer class="w-2/5 flex flex-col gap-4">
+			<!-- Video-Karte -->
+			<UCard
+				variant="outline"
+				class="mb-4"
+			>
+				<template #header>
+					<span class="text-2xl">Video</span>
+				</template>
+				<div class="flex flex-col gap-2">
+					<UInput
+						v-model="videoUrl"
+						placeholder="YouTube-URL"
+						@update:model-value="loadVideo"
+					/>
+					<div
+						v-if="videoThumbnail"
+						class="flex flex-col items-center"
+					>
+						<NuxtImg
+							:src="videoThumbnail"
+							alt="Video Thumbnail"
+							class="w-128 h-72 object-cover mt-4 rounded-lg"
+						/>
+						<p class="text-lg font-bold mt-2 text-center">
+							{{ videoTitle }}
+						</p>
+					</div>
+				</div>
+			</UCard>
 
-      <!-- Rating-Karte -->
-      <UCard variant="outline" class="mb-4">
-        <template #header>
-          <span class="text-2xl">Rating</span>
-        </template>
-        <div class="flex items-center justify-center">
-          <span class="text-7xl">⭐ {{ rating }} / 10</span>
-        </div>
-      </UCard>
+			<!-- Rating-Karte -->
+			<UCard
+				variant="outline"
+				class="mb-4"
+			>
+				<template #header>
+					<span class="text-2xl">Rating</span>
+				</template>
+				<div class="flex items-center justify-center">
+					<span class="text-7xl">⭐ {{ rating }} / 10</span>
+				</div>
+			</UCard>
 
-      <!-- Save-Karte -->
-      <UCard variant="outline" class="mb-4">
-        <template #header>
-          <span class="text-2xl">Save</span>
-        </template>
-        <div class="flex items-center justify-center">
-          <UButton label="Speichern" color="primary" />
-        </div>
-      </UCard>
-    </UContainer>
-  </div>
+			<!-- Save-Karte -->
+			<UCard
+				variant="outline"
+				class="mb-4"
+			>
+				<template #header>
+					<span class="text-2xl">Save</span>
+				</template>
+				<div class="flex items-center justify-center">
+					<UButton
+						label="Speichern"
+						color="primary"
+					/>
+				</div>
+			</UCard>
+		</UContainer>
+	</div>
 </template>
 
 <script lang="ts" setup>
@@ -158,11 +195,6 @@ const rating = computed(() => {
 
 <style>
 .bg-gradient-to-r {
-  background: linear-gradient(90deg, rgba(255, 154, 158, 0.6), rgba(168, 213, 242, 0.6), rgba(168, 242, 200, 0.6));
-  padding: 2px 8px;
-  border-radius: 4px;
-  color: white;
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, rgb(33, 230, 148), rgb(97, 14, 230), rgb(252, 61, 226));
 }
 </style>

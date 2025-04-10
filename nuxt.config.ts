@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'@nuxt/fonts',
 		'nuxt-security',
-    '@prisma/nuxt'
+		'@prisma/nuxt',
 	],
 	devtools: { enabled: true },
 	css: ['~/assets/css/main.css'],
