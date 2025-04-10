@@ -23,6 +23,3 @@ logs
 .env.*
 
 *.db
-*.db-journal
-
-lib/generated
