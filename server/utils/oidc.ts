@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import type { H3Event } from 'h3'
 import { consola } from 'consola'
 
-const { server, clientID, clientSecret } = useRuntimeConfig().oidc
+const { server, clientID, clientSecret, devMode } = useRuntimeConfig().oidc
 
 const discoverConfig = async (): Promise<Configuration> => {
 	return client.discovery(
@@ -38,6 +38,10 @@ export const useOIDCConfig = async (): Promise<Configuration> => {
  * If it is expired, refresh it.
  */
 export const validateToken = async (event: H3Event): Promise<boolean> => {
+	if (devMode && import.meta.dev) {
+		return true
+	}
+
 	const session = await useAuthSession(event)
 
 	if (!session.data.accessToken && !session.data.refreshToken) {

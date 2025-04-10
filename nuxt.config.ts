@@ -12,6 +12,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		dbURL: '',
 		oidc: {
+			devMode: false,
 			server: '',
 			clientID: '',
 			clientSecret: '',

@@ -99,9 +99,6 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 
-const user = useAuth().user
-console.log(`User: ${user.value}`)
-
 // Liste der Punkte
 const points = ['Hurensohn TV oder Bastard Beamer', 'E-Pumpe', '50 KW Heizleistung', 'Penispumpe', 'Headset', 'Sinnloses Gadget', 'Propellör', 'Place to Keul',
 	'Einparkhilfe', 'Halbe Küche', 'Abendkaffee', 'Wecker', 'Sonne', 'Regen', 'Schnee', 'Funny Moment', 'Gericht mit 30 Zutaten', 'Fast verbrannt', 'Alki Moment',

@@ -52,12 +52,13 @@
 				</div>
 
 				<!-- Rechter Avatar -->
-				<UDropdownMenu :items="items">
+				<UDropdownMenu :items="userDropdownItems">
 					<UTooltip
 						class="mr-4"
 					>
 						<UAvatar
-							icon="i-mingcute-user-3-line"
+							:src="user?.picture"
+							icon="i-lucide-user"
 						/>
 					</UTooltip>
 				</UDropdownMenu>
@@ -68,12 +69,30 @@
 </template>
 
 <script lang="ts" setup>
-import type { InputMenuItem, NavigationMenuItem } from '@nuxt/ui'
+import type { DropdownMenuItem, InputMenuItem, NavigationMenuItem } from '@nuxt/ui'
 
-// Beispiel-Optionen für das Dropdown
-const dropdownOptions = ['Fish13', 'TrekTrendy', 'NukesTop5']
+const user = useAuth().user
 
-const items: NavigationMenuItem[] = [
+const userDropdownItems: Ref<DropdownMenuItem[][]> = ref([
+	[
+		{
+			label: user.value?.name,
+			icon: 'i-lucide-user',
+			type: 'label',
+		},
+	],
+	[
+		{
+			label: 'Logout',
+			icon: 'i-lucide-log-out',
+			onSelect: () => {
+				useAuth().logout()
+			},
+		},
+	],
+])
+
+const items: Ref<NavigationMenuItem[]> = ref([
 	{
 		label: 'Fish13',
 		icon: 'i-lucide-fish',
@@ -87,7 +106,7 @@ const items: NavigationMenuItem[] = [
 		label: 'Nuke\'s Top 5',
 		icon: 'i-lucide-ghost',
 	},
-]
+])
 
 const badges = ref<InputMenuItem[]>([
 	{

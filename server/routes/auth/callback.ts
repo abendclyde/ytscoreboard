@@ -2,6 +2,11 @@ import * as client from 'openid-client'
 import dayjs from 'dayjs'
 
 export default defineEventHandler(async (event) => {
+	const { devMode } = useRuntimeConfig().oidc
+	if (devMode && import.meta.dev) {
+		return sendRedirect(event, '/')
+	}
+
 	const { pkce } = useRuntimeConfig().oidc
 
 	const config = await useOIDCConfig()
