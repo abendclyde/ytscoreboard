@@ -9,7 +9,8 @@ export const useAuth = () => {
 	})
 
 	const fetch = async (): Promise<void> => {
-		state.value = await useRequestFetch()<User>('/api/me')
+		const { data } = await useFetch<User>('/api/me')
+		state.value = data.value as User
 	}
 
 	const login = async (): Promise<void> => {
@@ -24,6 +25,7 @@ export const useAuth = () => {
 		state,
 		user,
 		loggedIn,
+
 		fetch,
 		login,
 		logout,

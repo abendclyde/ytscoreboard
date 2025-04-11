@@ -8,6 +8,12 @@ export default defineNuxtConfig({
 		'nuxt-security',
 	],
 	devtools: { enabled: true },
+	app: {
+		head: {
+			title: 'YT Scoreboard',
+			viewport: 'width=device-width, height=device-height, initial-scale=1',
+		},
+	},
 	css: ['~/assets/css/main.css'],
 	runtimeConfig: {
 		dbURL: '',
@@ -22,6 +28,9 @@ export default defineNuxtConfig({
 			pkce: false,
 		},
 		sessionPassword: '',
+	},
+	experimental: {
+		typedPages: true,
 	},
 	compatibilityDate: '2024-11-01',
 	eslint: {

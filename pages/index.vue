@@ -1,12 +1,12 @@
 <template>
-	<div class="flex gap-4">
+	<div class="flex flex-wrap-reverse gap-4">
 		<!-- Linke Spalte -->
-		<UContainer class="w-2/5 flex flex-col overflow-auto">
+		<UContainer class="max-w-2/5 min-w-fit flex flex-col max-h-[calc(100dvh-8rem)] overflow-auto">
 			<UCard
 				v-for="(point, index) in points"
 				:key="index"
 				variant="subtle"
-				class="mt-2 flex justify-between items-center"
+				class="my-2 flex justify-between items-center"
 			>
 				<div class="flex items-center gap-2">
 					<UCheckbox
@@ -33,7 +33,7 @@
 		</UContainer>
 
 		<!-- Rechte Spalte -->
-		<UContainer class="w-2/5 flex flex-col gap-4">
+		<UContainer class="max-w-3/5 min-w-fit w-auto flex flex-col gap-4">
 			<!-- Video-Karte -->
 			<UCard
 				variant="outline"
