@@ -15,17 +15,18 @@ export const useAuth = () => {
 	const fetchWithCookie = async <T>(url: string): Promise<TypedInternalResponse<NitroFetchRequest, T, 'get'> | undefined> => {
 		const event = useRequestEvent()
 
-		/* Get the response from the server endpoint */
 		const res = await $fetch.raw<T>(url, {
 			headers: event?.headers,
 		})
-		/* Get the cookies from the response */
+
+		// get set-cookie headers from server response
 		const cookies = res.headers.getSetCookie()
-		/* Attach each cookie to our incoming Request */
+
+		// attach set-cookie headers to client response
 		for (const cookie of cookies) {
 			appendResponseHeader(event!, 'set-cookie', cookie)
 		}
-		/* Return the data of the response */
+
 		return res._data
 	}
 
