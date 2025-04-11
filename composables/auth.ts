@@ -1,3 +1,7 @@
+import { appendResponseHeader } from 'h3'
+import type { FetchResponse } from 'ofetch'
+import type { NitroFetchRequest, TypedInternalResponse } from 'nitropack'
+import { consola } from 'consola'
 import type { User } from '~/types/user'
 
 export const useAuth = () => {
@@ -8,7 +12,31 @@ export const useAuth = () => {
 		return Boolean(state.value?.expiresAt)
 	})
 
+	const fetchWithCookie = async <T>(url: string): Promise<TypedInternalResponse<NitroFetchRequest, T, 'get'> | undefined> => {
+		const event = useRequestEvent()
+
+		/* Get the response from the server endpoint */
+		const res = await $fetch.raw<T>(url, {
+			headers: event?.headers,
+		})
+		/* Get the cookies from the response */
+		const cookies = res.headers.getSetCookie()
+		/* Attach each cookie to our incoming Request */
+		for (const cookie of cookies) {
+			appendResponseHeader(event!, 'set-cookie', cookie)
+		}
+		/* Return the data of the response */
+		return res._data
+	}
+
 	const fetch = async (): Promise<void> => {
+		// on ssr forward set-cookie header to client
+		if (import.meta.server) {
+			const { data } = await useAsyncData(() => fetchWithCookie<User>('/api/me'))
+			state.value = data.value as User
+			return
+		}
+
 		const { data } = await useFetch<User>('/api/me')
 		state.value = data.value as User
 	}
@@ -22,11 +50,11 @@ export const useAuth = () => {
 	}
 
 	return {
-		state,
+		fetch,
+
 		user,
 		loggedIn,
 
-		fetch,
 		login,
 		logout,
 	}

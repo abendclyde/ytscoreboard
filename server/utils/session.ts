@@ -12,7 +12,7 @@ export const useLoginSession = (
 		maxAge: 60 * 30, // 30 minutes
 		cookie: {
 			httpOnly: true,
-			secure: false,
+			secure: true,
 			sameSite: 'lax',
 		},
 	})

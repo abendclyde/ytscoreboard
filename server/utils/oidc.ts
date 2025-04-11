@@ -45,11 +45,13 @@ export const validateToken = async (event: H3Event): Promise<boolean> => {
 	const session = await useAuthSession(event)
 
 	if (!session.data.accessToken && !session.data.refreshToken) {
+		await session.clear()
 		return false
 	}
 
 	const expiresAt = dayjs.unix(session.data.expiresAt)
 	if (dayjs().isAfter(expiresAt.subtract(1, 'minute'))) {
+		console.log('token expired!')
 		try {
 			await refreshToken(event)
 		}
@@ -66,7 +68,7 @@ export const validateToken = async (event: H3Event): Promise<boolean> => {
 /**
  * Refresh the token in the session.
  */
-export const refreshToken = async (event: H3Event) => {
+export const refreshToken = async (event: H3Event): Promise<void> => {
 	const config = await useOIDCConfig()
 	const session = await useAuthSession(event)
 
@@ -82,8 +84,6 @@ export const refreshToken = async (event: H3Event) => {
 		})
 	}
 	catch (err) {
-		consola.error(err)
-		await session.clear()
 		throw createError('token refresh failed')
 	}
 }

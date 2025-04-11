@@ -5,10 +5,8 @@ export const defineAuthEventHandler = <T extends EventHandlerRequest, D>(handler
 		const loggedIn = await validateToken(event)
 
 		if (!loggedIn) {
-			throw createError({
-				statusCode: 401,
-				message: 'Unauthorized',
-			})
+			setResponseStatus(event, 401)
+			return {}
 		}
 
 		return handler(event)

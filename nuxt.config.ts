@@ -41,7 +41,7 @@ export default defineNuxtConfig({
 	},
 	security: {
 		csrf: {
-			enabled: true,
+			enabled: false,
 		},
 		headers: {
 			contentSecurityPolicy: {

@@ -73,7 +73,8 @@
 <script lang="ts" setup>
 import type { DropdownMenuItem, InputMenuItem, NavigationMenuItem } from '@nuxt/ui'
 
-const user = useAuth().user
+const { user } = useAuth()
+console.log(user.value)
 
 const userDropdownItems: Ref<DropdownMenuItem[][]> = ref([
 	[
