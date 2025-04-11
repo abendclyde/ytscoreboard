@@ -11,7 +11,6 @@ export default defineNuxtConfig({
 	app: {
 		head: {
 			title: 'YT Scoreboard',
-			viewport: 'width=device-width, height=device-height, initial-scale=1',
 		},
 	},
 	css: ['~/assets/css/main.css'],

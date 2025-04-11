@@ -94,6 +94,8 @@ const userDropdownItems: Ref<DropdownMenuItem[][]> = ref([
 	],
 ])
 
+const dropdownOptions: Ref<string[]> = ref(['Fish13', 'TrekTrendy', 'NukesTop5'])
+
 const items: Ref<NavigationMenuItem[]> = ref([
 	{
 		label: 'Fish13',
