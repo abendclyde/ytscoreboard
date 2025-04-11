@@ -54,6 +54,7 @@
 			<UDropdownMenu :items="userDropdownItems">
 				<UTooltip
 					class="mr-4"
+					:text="user?.name"
 				>
 					<UAvatar
 						:src="user?.picture"
@@ -74,7 +75,6 @@
 import type { DropdownMenuItem, InputMenuItem, NavigationMenuItem } from '@nuxt/ui'
 
 const { user } = useAuth()
-console.log(user.value)
 
 const userDropdownItems: Ref<DropdownMenuItem[][]> = ref([
 	[

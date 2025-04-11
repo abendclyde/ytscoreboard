@@ -3,8 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - .:/app:Z
     ports:
       - "127.0.0.1:3000:3000"
+      - "127.0.0.1:24678:24678"
     env_file:
       - .env
     depends_on:

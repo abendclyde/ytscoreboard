@@ -1,7 +1,5 @@
 import { appendResponseHeader } from 'h3'
-import type { FetchResponse } from 'ofetch'
 import type { NitroFetchRequest, TypedInternalResponse } from 'nitropack'
-import { consola } from 'consola'
 import type { User } from '~/types/user'
 
 export const useAuth = () => {
@@ -9,7 +7,7 @@ export const useAuth = () => {
 
 	const user: ComputedRef<User | undefined> = computed(() => state.value)
 	const loggedIn: ComputedRef<boolean> = computed<boolean>(() => {
-		return Boolean(state.value?.expiresAt)
+		return Boolean(state.value)
 	})
 
 	const fetchWithCookie = async <T>(url: string): Promise<TypedInternalResponse<NitroFetchRequest, T, 'get'> | undefined> => {

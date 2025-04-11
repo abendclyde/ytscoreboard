@@ -51,7 +51,6 @@ export const validateToken = async (event: H3Event): Promise<boolean> => {
 
 	const expiresAt = dayjs.unix(session.data.expiresAt)
 	if (dayjs().isAfter(expiresAt.subtract(1, 'minute'))) {
-		console.log('token expired!')
 		try {
 			await refreshToken(event)
 		}
