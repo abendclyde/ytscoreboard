@@ -6,7 +6,11 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'@nuxt/fonts',
 		'nuxt-security',
+		'@pinia/nuxt',
 	],
+	imports: {
+		dirs: ['./types'],
+	},
 	devtools: { enabled: true },
 	app: {
 		head: {

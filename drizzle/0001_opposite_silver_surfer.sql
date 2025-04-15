@@ -1,0 +1,1 @@
+ALTER TABLE "points" ADD CONSTRAINT "points_category_unique" UNIQUE("category");

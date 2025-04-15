@@ -5,6 +5,6 @@ export default defineConfig({
 	schema: './db',
 	dialect: 'postgresql',
 	dbCredentials: {
-		url: process.env.NUXT_DB_URL!,
+		url: process.env.DB_URL!,
 	},
 })

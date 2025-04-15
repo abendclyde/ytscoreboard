@@ -1,6 +1,6 @@
 {
-  "id": "446b38d4-d36f-4629-93bb-f83aadf63002",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "9bab5fab-dea8-4ba3-ac24-749a0a843ea9",
+  "prevId": "446b38d4-d36f-4629-93bb-f83aadf63002",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -97,7 +97,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "points_category_unique": {
+          "name": "points_category_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "category"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

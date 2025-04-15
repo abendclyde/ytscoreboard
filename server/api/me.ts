@@ -1,6 +1,3 @@
-import dayjs from 'dayjs'
-import type { User } from '~/types/user'
-
 export default defineAuthEventHandler(async (event) => {
 	const { devMode } = useRuntimeConfig().oidc
 	if (devMode && import.meta.dev) {
