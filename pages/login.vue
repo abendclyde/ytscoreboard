@@ -1,8 +1,23 @@
 <template>
-	<div class="flex justify-center">
+	<div class="flex flex-col items-center gap-16">
+		<div class="flex flex-col items-center gap-4">
+			<NuxtPicture
+				format="webp"
+				src="/icon.png"
+				preload
+				class="w-48"
+			/>
+			<span class="text-6xl font-bold">
+				YT-Scoreboard
+			</span>
+		</div>
 		<UCard>
-			<template #header>
-				Login
+			<template
+				#header
+			>
+				<span class="text-xl font-semibold">
+					Login
+				</span>
 			</template>
 			<UButton
 				size="xl"
