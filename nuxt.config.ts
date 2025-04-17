@@ -49,7 +49,7 @@ export default defineNuxtConfig({
 		},
 		headers: {
 			contentSecurityPolicy: {
-				'img-src': ['https:', 'data:'],
+				'img-src': ['https:', 'data:', 'http:'],
 			},
 		},
 	},
