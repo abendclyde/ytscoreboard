@@ -1,71 +1,43 @@
 <template>
 	<UApp class="max-h-dvh h-dvh max-w-dvw w-dvw">
-		<div class="flex items-center justify-between h-16 w-full px-4 border-b border-gray-200 dark:border-gray-800">
+		<div class="flex items-center h-16 w-full px-4 border-b border-gray-200 dark:border-gray-800 relative">
 			<!-- Linker Button Bereich -->
-			<div>
-				<UModal
-					:ui="{ footer: 'justify-end' }"
-					title="Eintrag hinzufügen"
-				>
-					<UButton
-						icon="i-lucide-plus"
-						color="primary"
-						variant="subtle"
-						label="Hinzufügen"
-					/>
+			<div class="flex items-center gap-4 flex-shrink-0">
+				<!-- Logo/Home Link -->
+				<NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+					<NuxtPicture format="webp" src="/icon.png" preload class="w-8 h-8" />
+					<span class="text-lg font-bold">YT Scoreboard</span>
+				</NuxtLink>
+
+				<UModal :ui="{ footer: 'justify-end' }" title="Eintrag hinzufügen">
+					<UButton icon="i-lucide-plus" color="primary" variant="subtle" label="Hinzufügen" />
 					<template #body>
 						<div class="flex flex-col items-center">
-							<UInput
-								placeholder="Titel"
-								class="w-96 mb-2"
-							/>
-							<UInputMenu
-								:items="badges"
-								placeholder="Gewichtung"
-								class="w-96 mb-2"
-							/>
-							<UInputMenu
-								:items="dropdownOptions"
-								placeholder="YouTuber wählen"
-								class="w-96"
-							/>
+							<UInput placeholder="Titel" class="w-96 mb-2" />
+							<UInputMenu :items="badges" placeholder="Gewichtung" class="w-96 mb-2" />
+							<UInputMenu :items="dropdownOptions" placeholder="YouTuber wählen" class="w-96" />
 						</div>
 					</template>
 					<template #footer>
-						<UButton
-							label="Abbrechen"
-							color="error"
-							variant="outline"
-						/>
-						<UButton
-							label="Hinzufügen"
-							color="primary"
-						/>
+						<UButton label="Abbrechen" color="error" variant="outline" />
+						<UButton label="Hinzufügen" color="primary" />
 					</template>
 				</UModal>
 			</div>
 
-			<!-- Mittlere Buttons -->
-			<div class="flex justify-center flex-grow">
+			<!-- Mittlere Buttons - absolut zentriert -->
+			<div class="absolute left-1/2 transform -translate-x-1/2">
 				<UNavigationMenu :items="items" />
+			</div> <!-- Rechter Avatar -->
+			<div class="ml-auto flex-shrink-0">
+				<UDropdownMenu :items="userDropdownItems">
+					<UTooltip class="mr-4" :text="user?.name">
+						<UAvatar :src="user?.picture" icon="i-lucide-user" />
+					</UTooltip>
+				</UDropdownMenu>
 			</div>
-
-			<!-- Rechter Avatar -->
-			<UDropdownMenu :items="userDropdownItems">
-				<UTooltip
-					class="mr-4"
-					:text="user?.name"
-				>
-					<UAvatar
-						:src="user?.picture"
-						icon="i-lucide-user"
-					/>
-				</UTooltip>
-			</UDropdownMenu>
 		</div>
-		<div
-			class="max-h-[calc(100dvh-4rem)] p-8"
-		>
+		<div class="max-h-[calc(100dvh-4rem)] p-8">
 			<slot />
 		</div>
 	</UApp>
@@ -97,19 +69,34 @@ const userDropdownItems: Ref<DropdownMenuItem[][]> = ref([
 
 const dropdownOptions: Ref<string[]> = ref(['Fish13', 'TrekTrendy', 'NukesTop5'])
 
+const route = useRoute()
+
 const items: Ref<NavigationMenuItem[]> = ref([
 	{
 		label: 'Fish13',
 		icon: 'i-lucide-fish',
-		active: true,
+		children: [
+			{
+				label: 'Scoreboard',
+				icon: 'i-lucide-trophy',
+				to: '/fish13',
+			},
+			{
+				label: 'Bingo',
+				icon: 'i-lucide-grid-3x3',
+				to: '/bingo',
+			},
+		],
 	},
 	{
 		label: 'Trek Trendy',
 		icon: 'i-lucide-plane-takeoff',
+		to: '/trek-trendy',
 	},
 	{
 		label: 'Nuke\'s Top 5',
 		icon: 'i-lucide-ghost',
+		to: '/nukes-top5',
 	},
 ])
 

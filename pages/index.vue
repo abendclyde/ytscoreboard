@@ -1,200 +1,88 @@
 <template>
-	<div class="flex flex-wrap-reverse gap-4">
-		<!-- Linke Spalte -->
-		<UContainer class="max-w-2/5 min-w-fit flex flex-col max-h-[calc(100dvh-8rem)] overflow-auto">
-			<UCard
-				v-for="(point, index) in points"
-				:key="index"
-				variant="subtle"
-				class="my-2 flex justify-between items-center"
-			>
-				<div class="flex items-center gap-2">
-					<UCheckbox
-						v-model="checkedPoints[index]"
-						size="xl"
-						:label="point"
-						color="primary"
-					/>
-					<UBadge
-						v-if="rarities[point]"
-						:class="[
-							'px-2 py-1 rounded text-white',
-							rarities[point].label === 'Common' && 'bg-gray-400',
-							rarities[point].label === 'Rare' && 'bg-blue-400',
-							rarities[point].label === 'Epic' && 'bg-purple-400',
-							rarities[point].label === 'Legendary' && 'bg-orange-400',
-							rarities[point].label === 'Mythical' && 'bg-gradient-to-r',
-						]"
-					>
-						{{ rarities[point].label }}
-					</UBadge>
-				</div>
-			</UCard>
-		</UContainer>
+    <div class="min-h-[80vh] flex flex-col items-center justify-center">
+        <!-- YouTuber Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+            <!-- Fish13 Card -->
+            <UCard class="hover:shadow-lg transition-shadow cursor-pointer group">
+                <div class="text-center p-6">                    <div class="text-6xl mb-4">🐟</div>
+                    <h3 class="text-2xl font-bold mb-2">Fish13</h3>
+                    <p class="text-gray-600 mb-4">Scoreboard und Bingo-Spiel</p>
+                    <div class="flex flex-col gap-2">
+                        <NuxtLink to="/fish13">
+                            <UButton 
+                                color="primary" 
+                                size="lg" 
+                                class="w-full"
+                                icon="i-lucide-trophy"
+                            >
+                                Scoreboard
+                            </UButton>
+                        </NuxtLink>
+                        <NuxtLink to="/bingo">
+                            <UButton 
+                                color="secondary" 
+                                variant="outline" 
+                                size="lg" 
+                                class="w-full"
+                                icon="i-lucide-grid-3x3"
+                            >
+                                Bingo
+                            </UButton>
+                        </NuxtLink>
+                    </div>
+                </div>
+            </UCard>
 
-		<!-- Rechte Spalte -->
-		<UContainer class="max-w-3/5 min-w-fit w-auto flex flex-col gap-4">
-			<!-- Video-Karte -->
-			<UCard
-				variant="outline"
-				class="mb-4"
-			>
-				<template #header>
-					<span class="text-2xl">Video</span>
-				</template>
-				<div class="flex flex-col gap-2">
-					<UInput
-						v-model="videoUrl"
-						placeholder="YouTube-URL"
-						@update:model-value="loadVideo"
-					/>
-					<div
-						v-if="videoThumbnail"
-						class="flex flex-col items-center"
-					>
-						<NuxtImg
-							:src="videoThumbnail"
-							alt="Video Thumbnail"
-							class="w-128 h-72 object-cover mt-4 rounded-lg"
-						/>
-						<p class="text-lg font-bold mt-2 text-center">
-							{{ videoTitle }}
-						</p>
-					</div>
-				</div>
-			</UCard>
+            <!-- TrekTrendy Card -->
+            <UCard class="hover:shadow-lg transition-shadow cursor-pointer group">
+                <NuxtLink to="/trek-trendy">
+                    <div class="text-center p-6">                        <div class="text-6xl mb-4">✈️</div>
+                        <h3 class="text-2xl font-bold mb-2">Trek Trendy</h3>
+                        <p class="text-gray-600 mb-4">Reise-Adventures und Punkte</p>
+                        <UButton
+                            color="success" 
+                            size="lg" 
+                            class="w-full group-hover:scale-105 transition-transform"
+                            icon="i-lucide-plane-takeoff"
+                        >
+                            Scoreboard öffnen
+                        </UButton>
+                    </div>
+                </NuxtLink>
+            </UCard>
 
-			<!-- Rating-Karte -->
-			<UCard
-				variant="outline"
-				class="mb-4"
-			>
-				<template #header>
-					<span class="text-2xl">Rating</span>
-				</template>
-				<div class="flex items-center justify-center">
-					<span class="text-7xl">⭐ {{ rating }} / 10</span>
-				</div>
-			</UCard>
-
-			<!-- Save-Karte -->
-			<UCard
-				variant="outline"
-				class="mb-4"
-			>
-				<template #header>
-					<span class="text-2xl">Save</span>
-				</template>
-				<div class="flex items-center justify-center">
-					<UButton
-						label="Speichern"
-						color="primary"
-					/>
-				</div>
-			</UCard>
-		</UContainer>
-	</div>
+            <!-- Nuke's Top 5 Card -->
+            <UCard class="hover:shadow-lg transition-shadow cursor-pointer group">
+                <NuxtLink to="/nukes-top5">
+                    <div class="text-center p-6">                        <div class="text-6xl mb-4">👻</div>
+                        <h3 class="text-2xl font-bold mb-2">Nuke's Top 5</h3>
+                        <p class="text-gray-600 mb-4">Mysteriöse Listen und Punkte</p>
+                        <UButton
+                            color="neutral" 
+                            size="lg" 
+                            class="w-full group-hover:scale-105 transition-transform"
+                            icon="i-lucide-ghost"
+                        >
+                            Scoreboard öffnen
+                        </UButton>
+                    </div>
+                </NuxtLink>            </UCard>
+        </div>
+    </div>
 </template>
 
-<script lang="ts" setup>
-import { ref, computed } from 'vue'
-
-// Liste der Punkte
-const points = ['Hurensohn TV oder Bastard Beamer', 'E-Pumpe', '50 KW Heizleistung', 'Penispumpe', 'Headset', 'Sinnloses Gadget', 'Propellör', 'Place to Keul',
-	'Einparkhilfe', 'Halbe Küche', 'Abendkaffee', 'Wecker', 'Sonne', 'Regen', 'Schnee', 'Funny Moment', 'Gericht mit 30 Zutaten', 'Fast verbrannt', 'Alki Moment',
-	'Teleskop-Lampe', 'Unstable Construction', 'Raumspritzer', '80° Essen', 'Cute Moment', 'Alle Fenster auf', 'Fettsack']
-
-// Checkbox-Status
-const checkedPoints = ref(Array(points.length).fill(false))
-
-// Video-Logik
-const videoUrl = ref('')
-const videoThumbnail = ref('')
-const videoTitle = ref('')
-
-function loadVideo() {
-	const videoId = extractYouTubeId(videoUrl.value)
-	if (videoId) {
-		videoThumbnail.value = `https://img.youtube.com/vi/${videoId}/0.jpg`
-		fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
-			.then(response => response.json())
-			.then((data) => {
-				videoTitle.value = data.title
-			})
-			.catch(() => {
-				videoTitle.value = 'Unbekannter Titel'
-			})
-	}
-	else {
-		videoThumbnail.value = ''
-		videoTitle.value = ''
-	}
-}
-
-function extractYouTubeId(url: string): string | null {
-	const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^?&]+)/)
-	return match ? match[1] || match[2] : null
-}
-
-// Rating-Logik
-const rarityWeights: Record<string, number> = {
-	Common: 1,
-	Uncommon: 2,
-	Rare: 3,
-	Epic: 5,
-	Legendary: 7,
-	Mythical: 10,
-}
-
-const rarities: Record<string, { label: string }> = {
-	'Hurensohn TV oder Bastard Beamer': { label: 'Legendary' },
-	'E-Pumpe': { label: 'Rare' },
-	'50 KW Heizleistung': { label: 'Epic' },
-	'Penispumpe': { label: 'Mythical' },
-	'Headset': { label: 'Common' },
-	'Sinnloses Gadget': { label: 'Common' },
-	'Propellör': { label: 'Rare' },
-	'Place to Keul': { label: 'Epic' },
-	'Einparkhilfe': { label: 'Common' },
-	'Halbe Küche': { label: 'Rare' },
-	'Abendkaffee': { label: 'Common' },
-	'Wecker': { label: 'Common' },
-	'Sonne': { label: 'Common' },
-	'Regen': { label: 'Rare' },
-	'Schnee': { label: 'Epic' },
-	'Funny Moment': { label: 'Legendary' },
-	'Gericht mit 30 Zutaten': { label: 'Epic' },
-	'Fast verbrannt': { label: 'Rare' },
-	'Alki Moment': { label: 'Common' },
-	'Teleskop-Lampe': { label: 'Rare' },
-	'Unstable Construction': { label: 'Epic' },
-	'Raumspritzer': { label: 'Legendary' },
-	'80° Essen': { label: 'Mythical' },
-	'Cute Moment': { label: 'Epic' },
-	'Alle Fenster auf': { label: 'Common' },
-	'Fettsack': { label: 'Rare' },
-}
-
-const maxWeight = Object.keys(rarities).reduce((sum, point) => {
-	const rarity = rarities[point].label
-	return sum + rarityWeights[rarity]
-}, 0)
-
-const rating = computed(() => {
-	const currentWeight = points.reduce((sum, point, index) => {
-		if (checkedPoints.value[index]) {
-			const rarity = rarities[point].label
-			return sum + rarityWeights[rarity]
-		}
-		return sum
-	}, 0)
-
-	return ((currentWeight / maxWeight) * 10).toFixed(1)
+<script setup lang="ts">
+// Landing page metadata
+useHead({
+    title: 'YT Scoreboard - Verfolge deine Lieblings-YouTuber',
+    meta: [
+        { name: 'description', content: 'Verfolge die Punkte und Aktivitäten deiner Lieblings-YouTuber in einem übersichtlichen Dashboard' }
+    ]
 })
 </script>
 
-<style>
-.bg-gradient-to-r {
-  background: linear-gradient(45deg, rgb(33, 230, 148), rgb(97, 14, 230), rgb(252, 61, 226));
+<style scoped>
+.group:hover .group-hover\:scale-105 {
+    transform: scale(1.05);
 }
 </style>
