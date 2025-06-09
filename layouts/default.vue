@@ -4,23 +4,57 @@
 			<!-- Linker Button Bereich -->
 			<div class="flex items-center gap-4 flex-shrink-0">
 				<!-- Logo/Home Link -->
-				<NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-					<NuxtPicture format="webp" src="/icon.png" preload class="w-8 h-8" />
+				<NuxtLink
+					to="/"
+					class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+				>
+					<NuxtPicture
+						format="webp"
+						src="/icon.png"
+						preload
+						class="w-8 h-8"
+					/>
 					<span class="text-lg font-bold">YT Scoreboard</span>
 				</NuxtLink>
 
-				<UModal :ui="{ footer: 'justify-end' }" title="Eintrag hinzufügen">
-					<UButton icon="i-lucide-plus" color="primary" variant="subtle" label="Hinzufügen" />
+				<UModal
+					:ui="{ footer: 'justify-end' }"
+					title="Eintrag hinzufügen"
+				>
+					<UButton
+						icon="i-lucide-plus"
+						color="primary"
+						variant="subtle"
+						label="Hinzufügen"
+					/>
 					<template #body>
 						<div class="flex flex-col items-center">
-							<UInput placeholder="Titel" class="w-96 mb-2" />
-							<UInputMenu :items="badges" placeholder="Gewichtung" class="w-96 mb-2" />
-							<UInputMenu :items="dropdownOptions" placeholder="YouTuber wählen" class="w-96" />
+							<UInput
+								placeholder="Titel"
+								class="w-96 mb-2"
+							/>
+							<UInputMenu
+								:items="badges"
+								placeholder="Gewichtung"
+								class="w-96 mb-2"
+							/>
+							<UInputMenu
+								:items="dropdownOptions"
+								placeholder="YouTuber wählen"
+								class="w-96"
+							/>
 						</div>
 					</template>
 					<template #footer>
-						<UButton label="Abbrechen" color="error" variant="outline" />
-						<UButton label="Hinzufügen" color="primary" />
+						<UButton
+							label="Abbrechen"
+							color="error"
+							variant="outline"
+						/>
+						<UButton
+							label="Hinzufügen"
+							color="primary"
+						/>
 					</template>
 				</UModal>
 			</div>
@@ -31,8 +65,14 @@
 			</div> <!-- Rechter Avatar -->
 			<div class="ml-auto flex-shrink-0">
 				<UDropdownMenu :items="userDropdownItems">
-					<UTooltip class="mr-4" :text="user?.name">
-						<UAvatar :src="user?.picture" icon="i-lucide-user" />
+					<UTooltip
+						class="mr-4"
+						:text="user?.name"
+					>
+						<UAvatar
+							:src="user?.picture"
+							icon="i-lucide-user"
+						/>
 					</UTooltip>
 				</UDropdownMenu>
 			</div>
@@ -69,34 +109,21 @@ const userDropdownItems: Ref<DropdownMenuItem[][]> = ref([
 
 const dropdownOptions: Ref<string[]> = ref(['Fish13', 'TrekTrendy', 'NukesTop5'])
 
-const route = useRoute()
-
 const items: Ref<NavigationMenuItem[]> = ref([
 	{
 		label: 'Fish13',
 		icon: 'i-lucide-fish',
-		children: [
-			{
-				label: 'Scoreboard',
-				icon: 'i-lucide-trophy',
-				to: '/fish13',
-			},
-			{
-				label: 'Bingo',
-				icon: 'i-lucide-grid-3x3',
-				to: '/bingo',
-			},
-		],
+		to: '/fish13-bingo',
 	},
 	{
 		label: 'Trek Trendy',
 		icon: 'i-lucide-plane-takeoff',
-		to: '/trek-trendy',
+		to: '/trek-trendy-bingo',
 	},
 	{
 		label: 'Nuke\'s Top 5',
 		icon: 'i-lucide-ghost',
-		to: '/nukes-top5',
+		to: '/nukes-top5-bingo',
 	},
 ])
 

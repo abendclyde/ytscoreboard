@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+@import "./bingo.css";
 
 :root {
     --ui-radius: var(--radius-lg);
